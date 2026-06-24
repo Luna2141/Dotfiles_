@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# Define Theme and Palette colors
+COLOR_BAR_BG=0x00000000       # 100% Completely transparent main bar container
+COLOR_PILL_BG=0x66ffffff      # Keep your 40% translucent white for the floating capsules
+COLOR_TEXT=0xff000000         # Crisp solid black text
+COLOR_ACCENT=0xffcca466       
+
+# -----------------------------------------------------------------------------
+# GLOBAL BAR CONFIGURATION (INVISIBLE CANVAS)
+# -----------------------------------------------------------------------------
+sketchybar --bar \
+    height=34 \
+    position=top \
+    color=$COLOR_BAR_BG \
+    border_width=0 \
+    margin=12 \
+    padding_left=14 \
+    padding_right=14 \
+    notch_offset=0
+
+# -----------------------------------------------------------------------------
+# GLOBAL BAR CONFIGURATION WITH BLURRING
+# -----------------------------------------------------------------------------
+sketchybar --bar \
+    height=36 \
+    position=top \
+    color=$COLOR_BAR_BG \
+    border_width=0 \
+    margin=10 \
+    padding_left=15 \
+    padding_right=15 \
+    notch_offset=0
+
+# Define universal styling defaults for text and icons
+sketchybar --default \
+    font="JetBrains Mono:Regular:12.0" \
+    icon_font="JetBrains Mono Regular:Regular:12.0" \
+    label.color=$COLOR_TEXT \
+    icon.color=$COLOR_TEXT \
+    label.padding_left=4 \
+    label.padding_right=4
+
+# -----------------------------------------------------------------------------
+# LEFT MODULES: WORKSPACE CHIPS (AeroSpace Workspace 1 - 5)
+# -----------------------------------------------------------------------------
+for i in {1..5}; do
+    # Individual workspace containers styled as micro-pills
+    sketchybar --add item space.$i left \
+               --set space.$i \
+                    icon="$i" \
+                    icon.font="JetBrains Mono:Bold:11.0" \
+                    icon.padding_left=6 \
+                    icon.padding_right=6 \
+                    background.color=$COLOR_PILL_BG \
+                    background.corner_radius=4 \
+                    background.height=20 \
+                    background.blur_radius=30 \
+                    padding_left=2 \
+                    padding_right=2 \
+                    click_script="aerospace workspace $i"
+done
+
+# Add a text label directly next to the workspace block to show active context
+sketchybar --add item workspace_title left \
+           --set workspace_title \
+                label="" \
+                label.font="JetBrains Mono:Italic:12.0" \
+                label.color=$COLOR_TEXT \
+                padding_left=15
+
+# -----------------------------------------------------------------------------
+# RIGHT MODULES: INDIVIDUAL SUB-CAPSULES (Matching your reference layout)
+# -----------------------------------------------------------------------------
+
+# Helper function to generate clean, individual frosted glass capsules
+create_pill() {
+    local NAME=$1
+    local POSITION=$2
+    local ICON=$3
+    local SCRIPT=$4
+    local LABEL=$5
+
+    sketchybar --add item "$NAME" "$POSITION" \
+               --set "$NAME" \
+                    icon="$ICON" \
+                    label="$LABEL" \
+                    script="$SCRIPT" \
+                    background.color=$COLOR_PILL_BG \
+                    background.corner_radius=6 \
+                    background.height=24 \
+                    background.blur_radius=40 \
+                    padding_left=4 \
+                    padding_right=4 \
+                    label.padding_right=8 \
+                    icon.padding_left=8
+}
+
+# 1. Date & System Time Module (Rightmost position)
+create_pill "clock" "right" "󱑒" "~/.config/sketchybar/plugins/clock.sh"
+
+# 2. Battery Percentage
+create_pill "battery" "right" "󰁹" "~/.config/sketchybar/plugins/battery.sh"
+
+# 3. System RAM or Metrics
+create_pill "memory" "right" "" "" "33%"
+sketchybar --set memory update_freq=10
+
+# 4. CPU Load Indicator
+create_pill "cpu" "right" "" "" "75%"
+sketchybar --set cpu update_freq=5
+
+# 5. Network Activity/Throughput Indicator
+create_pill "net" "right" "󰓅" "" "40K ↑ 10K ↓"
+sketchybar --set net update_freq=3
+
+# -----------------------------------------------------------------------------
+# SYSTEM INITIALIZATION & FORCED REDRAW
+# -----------------------------------------------------------------------------
+sketchybar --update

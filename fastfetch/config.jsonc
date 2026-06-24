@@ -1,0 +1,102 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "~/.config/fastfetch/custom_art.txt",
+        "type": "auto", // Back to auto since the text file is clean
+        "color": {
+            "1": "38;2;178;0;0" // Paints the entire Hornet ASCII art Crimson Red (#990000)
+        },
+        "padding": {
+            "top": 2,
+            "right": 4,
+            "left": 2
+        }
+    },
+    "display": {
+        "separator": "   ",
+        "color": "38;2;178;0;0" // Matching Crimson for the title indicators
+    },
+    "modules": [
+        "title",
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────────┐",
+            "outputColor": "white"
+        },
+        {
+            "type": "host",
+            "key": " 󰌢 Hardware",
+            "keyColor": "white"
+        },
+        {
+            "type": "cpu",
+            "key": " ├──  CPU",
+            "keyColor": "38;2;196;196;196" // Muted Pale White (#C4C4C4)
+        },
+        {
+            "type": "gpu",
+            "key": " ├── 󰢮 GPU",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "disk",
+            "key": " ├── 󰋊 Disk",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "memory",
+            "key": " ├──  Memory",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "display",
+            "key": " └── 󰍹 Display",
+            "keyColor": "38;2;196;196;196"
+        },
+        "break",
+        {
+            "type": "os",
+            "key": "  Software",
+            "keyColor": "white"
+        },
+        {
+            "type": "kernel",
+            "key": " ├── 󰒋 Kernel",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "packages",
+            "key": " ├── 󰏖 Packages",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "wm",
+            "key": " └──  WM",
+            "keyColor": "38;2;196;196;196",
+            "detectName": true // Forces Fastfetch to look past Quartz and pull the active overlay process
+        },
+        "break",
+        {
+            "type": "terminal",
+            "key": "  Terminal",
+            "keyColor": "white"
+        },
+        {
+            "type": "shell",
+            "key": " ├──  Shell",
+            "keyColor": "38;2;196;196;196"
+        },
+        {
+            "type": "theme",
+            "key": " └── 󰏘 Theme",
+            "keyColor": "38;2;196;196;196"
+        },
+        "break",
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────────┘",
+            "outputColor": "white"
+        },
+        "colors"
+    ]
+}

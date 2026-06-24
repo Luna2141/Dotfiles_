@@ -1,0 +1,74 @@
+
+# Master AeroSpace Tiling Configuration
+start-at-login = true
+
+# Absolute layout behavior (i3-style grid tracking)
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# -----------------------------------------------------------------------------
+# STARTUP BACKGROUND DAEMONS (Moved to top to prevent section bleeding)
+# -----------------------------------------------------------------------------
+exec-on-start = [
+    'borders',
+    'sketchybar'
+]
+
+# -----------------------------------------------------------------------------
+# GAP & PADDING LAYER SPECIFICATIONS
+# -----------------------------------------------------------------------------
+[gaps]
+# 10px spacing between individual tiling window panes
+inner.horizontal = 10
+inner.vertical   = 10
+
+# Margins surrounding the outer physical screen edges
+outer.top        = 50  # Perfectly clears your floating Sketchybar
+outer.bottom     = 5   # Your requested 5px padding from the bottom edge
+outer.left       = 10  # Explicit left edge gap
+outer.right      = 10  # Explicit right edge gap
+
+# -----------------------------------------------------------------------------
+# CORE KEY BINDINGS (Alt/Option as Primary Modifier)
+# -----------------------------------------------------------------------------
+[mode.main.binding]
+
+# Move focus between windows using Vim directional keys
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Swap physical window spots inside your current layout container
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Toggle split orientation explicitly between Horizontal and Vertical structures
+alt-e = 'layout toggle horizontal vertical'
+
+# Instantly maximize/fullscreen the focused window frame
+alt-f = 'fullscreen'
+
+# Drop a window out of the tiling grid into free-floating mode
+alt-shift-space = 'layout floating tiling'
+
+# -----------------------------------------------------------------------------
+# DESKTOP CONTAINERS (Workspaces 1-5)
+# -----------------------------------------------------------------------------
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+
+# Throw active windows straight to another workspace chip
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+
+# Hot-reload modifications made inside this config file instantly
+alt-shift-r = 'reload-config'
